@@ -1,17 +1,25 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Tab 1
+      Bitcoin Tracker
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid fixed *ngIf="bitcoin$">
+    <ion-row>
+      <ion-col >
+        <ion-img style="height: 160px;" [src]="bitcoin$.image"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col >
+        <div class="ion-text-center">
+            <h1> BTC : {{bitcoin$.current_price}} USD </h1>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
 </ion-content>
