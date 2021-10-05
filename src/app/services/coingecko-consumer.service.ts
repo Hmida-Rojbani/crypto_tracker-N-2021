@@ -9,8 +9,8 @@ export class CoingeckoConsumerService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getCoinInfo(){
-    const URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&ids=bitcoin';
-    return this.httpClient.get<CryptoCoin[]>(URL);
+  getCoinInfo(fiat: string, crypto: string){
+    const URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=';
+    return this.httpClient.get<CryptoCoin[]>(URL+fiat+'&ids='+crypto);
   }
 }
