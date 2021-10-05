@@ -1,0 +1,19 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Ripple Tracker
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<app-crypt-body [cryptoData]="ripple$"></app-crypt-body>
+
+<ion-footer>
+  <ion-item>
+    <ion-label>Select Fiat</ion-label>
+    <ion-select [(ngModel)]="selectedFiat" (ionChange)="changeFiat()">
+      <ion-select-option *ngFor="let fiat of fiats;" value="{{fiat}}">{{fiat}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-footer>

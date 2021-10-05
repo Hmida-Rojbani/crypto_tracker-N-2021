@@ -11,8 +11,6 @@ import { CoingeckoConsumerService } from '../services/coingecko-consumer.service
 export class Tab1Page implements OnInit{
 
   bitcoin$: CryptoCoin;
-  bgCardColor: string;
-  pricePersSentence: string;
   fiats =  ['USD','EUR','GBP','JPY'];
   selectedFiat = 'USD';
   constructor(private coinProvider: CoingeckoConsumerService, private decPipe: DecimalPipe) {}
@@ -28,13 +26,14 @@ export class Tab1Page implements OnInit{
   async getData(){
     const tab = await this.callService();
     this.bitcoin$ = tab[0];
+    this.bitcoin$.selectedFiat=this.selectedFiat;
     const price_change_percentage_24h= this.decPipe.transform(this.bitcoin$.price_change_percentage_24h,'1.2');
     if(this.bitcoin$.price_change_percentage_24h>0){
-      this.bgCardColor= '#90EE90';
-      this.pricePersSentence=`Price is increased by ${price_change_percentage_24h} % in the last 24 Hours.`;
+      this.bitcoin$.bgCardColor= '#90EE90';
+      this.bitcoin$.pricePersSentence=`Price is increased by ${price_change_percentage_24h} % in the last 24 Hours.`;
     } else{
-      this.bgCardColor= '#FF7F7F';
-      this.pricePersSentence=`Price is decreased by ${price_change_percentage_24h} % in the last 24 Hours.`;
+      this.bitcoin$.bgCardColor= '#FF7F7F';
+      this.bitcoin$.pricePersSentence=`Price is decreased by ${price_change_percentage_24h} % in the last 24 Hours.`;
     }
   }
 

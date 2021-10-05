@@ -1,0 +1,29 @@
+
+<ion-content [fullscreen]="true">
+  <ion-grid fixed *ngIf="cryptoData">
+    <ion-row>
+      <ion-col >
+        <div>
+          <ion-img style="height: 160px; background: rgba(204, 204, 204, 0.6);" [src]="cryptoData.image"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col >
+        <ion-card [ngStyle]="{'background-color': cryptoData.bgCardColor}">
+          <ion-card-header>
+            <ion-card-title>{{cryptoData.name}} Info :</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="ion-text-center">
+            <h2>Current price : {{cryptoData.current_price}} {{cryptoData.selectedFiat}}</h2>
+            <h3>{{cryptoData.pricePersSentence}}</h3>
+            <h3>Market Cap Rank :{{cryptoData.market_cap_rank}} </h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+

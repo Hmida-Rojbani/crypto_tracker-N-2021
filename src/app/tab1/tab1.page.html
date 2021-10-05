@@ -1,3 +1,4 @@
+
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>
@@ -6,30 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-grid fixed *ngIf="bitcoin$">
-    <ion-row>
-      <ion-col >
-        <ion-img style="height: 160px;" [src]="bitcoin$.image"></ion-img>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col >
-        <ion-card [ngStyle]="{'background-color': bgCardColor}">
-          <ion-card-header>
-            <ion-card-title>{{bitcoin$.name}} Info :</ion-card-title>
-          </ion-card-header>
-          <ion-card-content class="ion-text-center">
-            <h2>Current price : {{bitcoin$.current_price}} {{selectedFiat}} </h2>
-            <h3>{{pricePersSentence}}</h3>
-            <h3>Market Cap Rank :{{bitcoin$.market_cap_rank}} </h3>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-</ion-content>
+<app-crypt-body [cryptoData]="bitcoin$"></app-crypt-body>
 
 <ion-footer>
   <ion-item>

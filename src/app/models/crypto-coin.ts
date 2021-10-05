@@ -6,6 +6,9 @@ export class CryptoCoin {
   current_price: number;
   price_change_percentage_24h: number;
   circulating_supply: number;
+  bgCardColor: string;
+  pricePersSentence: string;
+  selectedFiat: string;
 
 
 }
