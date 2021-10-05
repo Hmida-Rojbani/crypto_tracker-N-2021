@@ -15,9 +15,20 @@
     </ion-row>
     <ion-row>
       <ion-col >
-        <div class="ion-text-center">
-            <h1> BTC : {{bitcoin$.current_price}} USD </h1>
-        </div>
+        <ion-card [ngStyle]="{'background-color': bitcoin$.price_change_percentage_24h>0 ? '#90EE90': '#FF7F7F'}">
+          <ion-card-header>
+            <ion-card-title>{{bitcoin$.name}} Info :</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="ion-text-center">
+            <h2>Current price : {{bitcoin$.current_price}} USD </h2>
+            <div *ngIf="bitcoin$.price_change_percentage_24h>0">
+              <h3>Price is increased by {{bitcoin$.price_change_percentage_24h|number}} % in the last 24 Hours.</h3>
+            </div>
+            <div *ngIf="bitcoin$.price_change_percentage_24h<=0">
+              <h3>Price is decreased by {{bitcoin$.price_change_percentage_24h|number}} % in the last 24 Hours.</h3>
+            </div>
+          </ion-card-content>
+        </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>

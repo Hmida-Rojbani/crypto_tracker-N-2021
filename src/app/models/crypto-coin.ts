@@ -1,5 +1,6 @@
 export class CryptoCoin {
 
+  name: string;
   market_cap_rank: number;
   image: string;
   current_price: number;
