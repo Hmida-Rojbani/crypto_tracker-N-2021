@@ -1,5 +1,7 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { timer } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { CryptoCoin } from '../models/crypto-coin';
 import { CoingeckoConsumerService } from '../services/coingecko-consumer.service';
 
@@ -8,23 +10,25 @@ import { CoingeckoConsumerService } from '../services/coingecko-consumer.service
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit{
+export class Tab1Page implements OnInit, OnDestroy{
 
   bitcoin$: CryptoCoin;
   fiats =  ['USD','EUR','GBP','JPY'];
   selectedFiat = 'USD';
+  subscription;
   constructor(private coinProvider: CoingeckoConsumerService, private decPipe: DecimalPipe) {}
 
   ngOnInit(){
-    this.getData();
+    this.callService();
   }
 
   callService(){
-    return this.coinProvider.getCoinInfo(this.selectedFiat,'bitcoin').toPromise();
+    this.subscription = timer(0, 10000)
+    .pipe(switchMap(() => this.coinProvider.getCoinInfo(this.selectedFiat,'bitcoin')))
+    .subscribe((result) => this.getData(result));
   }
 
-  async getData(){
-    const tab = await this.callService();
+  getData(tab){
     this.bitcoin$ = tab[0];
     this.bitcoin$.selectedFiat=this.selectedFiat;
     const price_change_percentage_24h= this.decPipe.transform(this.bitcoin$.price_change_percentage_24h,'1.2');
@@ -35,11 +39,16 @@ export class Tab1Page implements OnInit{
       this.bitcoin$.bgCardColor= '#FF7F7F';
       this.bitcoin$.pricePersSentence=`Price is decreased by ${price_change_percentage_24h} % in the last 24 Hours.`;
     }
+    console.log('new attempt');
   }
 
   changeFiat(){
     this.bitcoin$=null;
-    this.getData();
+    this.callService();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 
